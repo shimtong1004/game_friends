@@ -1,7 +1,7 @@
 
 <div style="width:100%; text-align: center;">
 	<% @games.each do |game| %>
-		<a href="<%=kakao_accounts_path%>?game_id=<%=game.id%>">
+		<a href="<%=URL%>kakao_accounts?game_id=<%=game.id%>">
 			<div>
 				<img src="<%=game.image_url%>" style="width:100px; display: block; margin-left: auto; margin-right: auto;">
 			</div>
