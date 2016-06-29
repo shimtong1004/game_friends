@@ -4,9 +4,8 @@ class KakaoAccountsController < ApplicationController
   # GET /kakao_accounts
   # GET /kakao_accounts.json
   def index
-    # game_id = params[:game_id]
-    # @kakao_accounts = KakaoAccount.where(game_id: game_id).order("id desc")
-    @games = Game.all
+    game_id = 1
+    @kakao_accounts = KakaoAccount.where(game_id: game_id).order("id desc")
   end
 
   # GET /kakao_accounts/1
