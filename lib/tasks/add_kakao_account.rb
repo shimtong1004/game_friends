@@ -27,28 +27,27 @@ require 'open-uri'
       # rescue
       # end
     # end
-    
-    url = "http://cafe.naver.com/momakakao/ArticleList.nhn?search.clubid=26203446&search.menuid=14&search.boardtype=L"
-    
-    # html_str = open(url, "r:UTF-8").read
-    html = open(url, "r:euc-kr").read
-    
-    # html_str.force_encoding("euc-kr")
-    # html_str.scrub!('?')
-    # html = html_str.force_encoding("UTF-8").encode("utf-8", "euc-kr")
-    doc = Nokogiri::HTML(html)
-    
-    titles = doc.css(".article-board.m-tcol-c form table .board-list")
-    titles.each do |title|
-      title = title.text
-      title.delete!("\r\n\t")
-      title.strip!
-      title_ary = title.split(" ")
-      title_ary.each do |tit|
-        if tit  =~ /^[A-Z0-9]+$/i
-          is_data = KakaoAccount.find_by_account(tit)
-          KakaoAccount.create(game_id:1, account: tit) unless is_data
+    while 1
+      begin
+        tmp = Time.now.instance_eval { self.to_i * 1000 + (usec/1000) }
+        url = "http://cafe.naver.com/momakakao/ArticleList.nhn?search.clubid=26203446&search.menuid=14&search.boardtype=L&a=#{tmp}"
+        html = open(url, "r:euc-kr").read
+        doc = Nokogiri::HTML(html)
+        
+        titles = doc.css(".article-board.m-tcol-c form table .board-list")
+        titles.each do |title|
+          title = title.text
+          title.delete!("\r\n\t")
+          title.strip!
+          title_ary = title.split(" ")
+          title_ary.each do |tit|
+            if tit  =~ /^[A-Z0-9]+$/i
+              is_data = KakaoAccount.find_by_account(tit)
+              KakaoAccount.create(game_id:1, account: tit) unless is_data
+            end
+          end
         end
+      rescue
       end
     end
     
