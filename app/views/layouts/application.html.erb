@@ -9,8 +9,18 @@
 </head>
 <body>
 
+
+<% if request.env['HTTP_USER_AGENT'].downcase.match(/mobile/) %>
 <div style="width:100%; margin: 0 auto;">
-		<%= yield %>
+	<div style="position:fixed; font-size:18px; top:0; background-color:orange; width:100%; left:0; height:50px; line-height:50px; color:white; text-align: center;">겜친 만들기</div>
+<% else %>
+<div style="width:500px; margin: 0 auto;">
+	<div style="position:fixed; font-size:18px; top:0; background-color:orange; width:500px; height:50px; line-height:50px; color:white; text-align: center;">겜친 만들기</div>
+	
+<% end %>
+		<div style="margin-top:65px;">
+			<%= yield %>
+		</div>
 </div>
 </body>
 </html>
