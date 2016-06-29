@@ -30,13 +30,23 @@
 	<div style="position:fixed; font-size:18px; top:0; background-color:orange; width:500px; height:50px; line-height:50px; color:white; text-align: center;">겜친 만들기</div>
 	
 <% end %>
-<div id="google_ads" style="padding-top:50px; text-align: center;">
-		<ins class="adsbygoogle example_responsive_1"
-     style="display:block"
-     data-ad-client="ca-pub-2840781308828288"
-     data-ad-slot="7820783651"
-     data-ad-format="auto"></ins>
-  </div>
+<% if request.env['HTTP_USER_AGENT'].downcase.match(/mobile/) %> 
+	<div style="padding: 50px 0; text-align: center;">
+	     <ins class="adsbygoogle"
+	     style="display:inline-block;width:320px;height:50px"
+	     data-ad-client="ca-pub-2840781308828288"
+	     data-ad-slot="9297516855"></ins>
+	</div>
+<% else %>
+<!-- 고급형 -->
+	<div style="padding: 50px 0;">
+		<ins class="adsbygoogle"
+	    	style="display:block"
+	     	data-ad-client="ca-pub-2840781308828288"
+	     	data-ad-slot="7820783651"
+	     	data-ad-format="auto"></ins>
+   </div>
+<% end %>
 			<div style="padding-top:20px;">
 			<%= yield %>
 			</div>
@@ -49,3 +59,20 @@ html, body {
     height: 100%;
 }
 </style>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 고급형 -->
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+  // function explode(){
+  	// $(".example_responsive_1").css({
+	   // "display" : "inline"
+	// });
+  // }
+  // setTimeout(explode, 500);
+  
+	
+</script>
