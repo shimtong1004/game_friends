@@ -30,14 +30,14 @@
 	<div style="position:fixed; font-size:18px; top:0; background-color:orange; width:500px; height:50px; line-height:50px; color:white; text-align: center;">겜친 만들기</div>
 	
 <% end %>
-<div id="google_ads" style="padding:50px 0;">
-		<ins class="adsbygoogle"
+<div id="google_ads" style="padding-top:50px; text-align: center;">
+		<ins class="adsbygoogle example_responsive_1"
      style="display:block"
      data-ad-client="ca-pub-2840781308828288"
      data-ad-slot="7820783651"
      data-ad-format="auto"></ins>
   </div>
-			<div>
+			<div style="padding-top:20px;">
 			<%= yield %>
 			</div>
 </div>
@@ -50,6 +50,14 @@ html, body {
 }
 </style>
 
+<style>
+.example_responsive_1 {
+	text-align:center; 
+	width: 100%; 
+	height: 100px;
+}
+
+</style>
 
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- 고급형 -->
@@ -59,9 +67,8 @@ html, body {
 
 <script>
   // function explode(){
-  	// $("#google_ads").css({
-	   // "position" : "fixed",
-	   // "top" : "50px",
+  	// $(".example_responsive_1").css({
+	   // "display" : "inline"
 	// });
   // }
   // setTimeout(explode, 500);
