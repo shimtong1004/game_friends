@@ -1,0 +1,26 @@
+<div style="width:100%;">
+	
+	<table style="width:100%; border-collapse:collapse;">
+		<% @kakao_accounts.each do |kakao_account| %>
+		<tr style="background-color: #DCDCDC;">
+			<td class="kakao_account" style="width:100%; margin-top:5px; padding:10px; line-height:20px;font-size:18px; border-bottom:1pt solid white;">
+				<span style="float:left; padding:10px;"><%= kakao_account.account%></span>
+				<span onclick="copyToClipboard('<%= kakao_account.account %>')" style="font-size:14px; background-color: #E6E6FA; float:right; padding:10px;">ID복사</span>
+			</td>
+		</tr>
+		<% end %>
+	</table>
+	
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+	function copyToClipboard(str) {
+	  var $temp = $("<input>");
+	  $("body").append($temp);
+	  $temp.val(str).select();
+	  document.execCommand("copy");
+	  $temp.remove();
+	  alert(str + " 복사 완료!!!")
+	}
+</script>

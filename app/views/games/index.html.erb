@@ -1,0 +1,9 @@
+<div style="width:100%; text-align: center;">
+	<% @games.each do |game| %>
+		<a href="/kakao_accounts?game_id=<%=game.id%>">
+		<div style="margin-top:10px; padding:10px; cursor:pointer; color: black; line-height: 20px; font-size: 18px; background-color: gray;">
+			<%=game.name%>
+		</div>
+		</a>
+	<% end %>
+</div>

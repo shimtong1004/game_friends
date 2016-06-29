@@ -1,0 +1,2 @@
+module KakaoAccountsHelper
+end

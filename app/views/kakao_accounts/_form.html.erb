@@ -1,0 +1,17 @@
+<%= form_for(@kakao_account) do |f| %>
+  <% if @kakao_account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@kakao_account.errors.count, "error") %> prohibited this kakao_account from being saved:</h2>
+
+      <ul>
+      <% @kakao_account.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
