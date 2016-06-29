@@ -30,17 +30,16 @@
 	<div style="position:fixed; font-size:18px; top:0; background-color:orange; width:500px; height:50px; line-height:50px; color:white; text-align: center;">겜친 만들기</div>
 	
 <% end %>
-			<div style="padding-top:140px;">
-			<%= yield %>
-			</div>
-
-  <div id="google_ads" style="padding: 10px 0;">
+<div id="google_ads" style="padding:50px 0;">
 		<ins class="adsbygoogle"
      style="display:block"
      data-ad-client="ca-pub-2840781308828288"
      data-ad-slot="7820783651"
      data-ad-format="auto"></ins>
   </div>
+			<div>
+			<%= yield %>
+			</div>
 </div>
 </body>
 </html>
@@ -59,21 +58,13 @@ html, body {
 </script>
 
 <script>
-  function explode(){
-  	$("#google_ads").css({
-	   "position" : "fixed",
-	   "top" : "40px",
-	});
-  }
-  setTimeout(explode, 500);
+  // function explode(){
+  	// $("#google_ads").css({
+	   // "position" : "fixed",
+	   // "top" : "50px",
+	// });
+  // }
+  // setTimeout(explode, 500);
   
 	
 </script>
-
-
-
-
-
-
-
-
