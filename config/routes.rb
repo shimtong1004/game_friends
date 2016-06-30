@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   resources :games
-  resources :kakao_accounts
+  resources :kakao_accounts do
+    collection do
+      post  'set_uniq_key'
+      post  'create_user_copy_account'
+      get   'set_user_id'
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

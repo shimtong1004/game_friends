@@ -1,26 +1,86 @@
-<div style="width:100%; margin-top:-15px;">
+<div style="width:100%;">
 	
 	<table style="width:100%; border-collapse:collapse;">
 		<% @kakao_accounts.each do |kakao_account| %>
-		<tr style="background-color: #DCDCDC;">
+		<tr id="account_<%=kakao_account.id%>" style="<%= @account_ids.index(kakao_account.id) ? "background-color: gray;" : "background-color: #DCDCDC;" %>">
 			<td class="kakao_account" style="width:100%; margin-top:5px; padding:10px; line-height:20px;font-size:18px; border-bottom:1pt solid white;">
 				<span style="float:left; padding:10px;"><%= kakao_account.account%></span>
-				<span onclick="copyToClipboard('<%= kakao_account.account %>')" style="font-size:14px; background-color: #E6E6FA; float:right; padding:10px;">ID복사</span>
+				<span onclick="copyToClipboard('<%=kakao_account.id%>', '<%= kakao_account.account %>')" style="font-size:14px; background-color: #E6E6FA; float:right; padding:10px;">ID복사</span>
 			</td>
 		</tr>
 		<% end %>
 	</table>
-	
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
-	function copyToClipboard(str) {
+	var uniq_key = getCookie("uniq_key");
+	if ( uniq_key == "") {
+		var uniq_key = "<%= @uniq_key %>";
+		var d = new Date();
+		d.setYear(2026);
+		var expires = "expires="+d.toGMTString();
+		document.cookie = "uniq_key" + "=" + uniq_key + "; " + expires;
+		$.ajax({
+			url: "/kakao_accounts/set_uniq_key",
+			dataType:'json',
+			data: {uniq_key: uniq_key},
+			type:'POST',
+			success: function(data){
+				document.cookie = "user_id" + "=" + data.user_id + "; " + expires;
+			  }
+			});
+	} else {
+		if("<%=session[:user_id]%>" == "") {
+			$.ajax({
+				url: "/kakao_accounts/set_user_id",
+				dataType:'json',
+				data: {uniq_key: uniq_key},
+				type:'GET',
+				success: function(data){
+				}
+			});
+		}
+	}
+	
+
+	function copyToClipboard(account_id, str) {
 	  var $temp = $("<input>");
 	  $("body").append($temp);
 	  $temp.val(str).select();
 	  document.execCommand("copy");
 	  $temp.remove();
-	  alert(str + " 복사 완료!!!")
+	  $.ajax({
+	  	url: "/kakao_accounts/create_user_copy_account",
+	  	dataType:'json',
+	  	data: {account_id: account_id, uniq_key: uniq_key},
+		type:'POST',
+		success: function(data){
+			$("#account_"+account_id).css("background-color","gray");
+		}
+	  });
+	  $("#msg").text(str + " 복사 완료!!!");
+	  $("#msg").show();
+	  setTimeout(hide_msg, 1000);
 	}
+	
+	function hide_msg() {
+		$("#msg").hide();
+	}
+	
+	function getCookie(cname) {
+	    var name = cname + "=";
+	    var ca = document.cookie.split(';');
+	    for(var i = 0; i <ca.length; i++) {
+	        var c = ca[i];
+	        while (c.charAt(0)==' ') {
+	            c = c.substring(1);
+	        }
+	        if (c.indexOf(name) == 0) {
+	            return c.substring(name.length,c.length);
+	        }
+	    }
+	    return "";
+	}
+	
 </script>

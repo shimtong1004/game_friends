@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160628104556) do
+ActiveRecord::Schema.define(version: 20160630045603) do
 
   create_table "games", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -28,5 +28,22 @@ ActiveRecord::Schema.define(version: 20160628104556) do
   end
 
   add_index "kakao_accounts", ["game_id"], name: "index_kakao_accounts_on_game_id", using: :btree
+
+  create_table "user_copy_accounts", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "account_id", limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "user_copy_accounts", ["user_id"], name: "index_user_copy_accounts_on_user_id", using: :btree
+
+  create_table "users", force: :cascade do |t|
+    t.string   "uniq_key",   limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "users", ["uniq_key"], name: "index_users_on_uniq_key", using: :btree
 
 end
