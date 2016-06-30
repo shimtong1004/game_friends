@@ -39,11 +39,11 @@ ActiveRecord::Schema.define(version: 20160630045603) do
   add_index "user_copy_accounts", ["user_id"], name: "index_user_copy_accounts_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "uniq_key",   limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "game_uniq_key", limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
-  add_index "users", ["uniq_key"], name: "index_users_on_uniq_key", using: :btree
+  add_index "users", ["game_uniq_key"], name: "index_users_on_game_uniq_key", using: :btree
 
 end

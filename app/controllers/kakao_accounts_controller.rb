@@ -9,23 +9,23 @@ class KakaoAccountsController < ApplicationController
     @kakao_accounts = KakaoAccount.where(game_id: game_id).order("id desc").limit(200)
     @account_ids = []
     @account_ids = UserCopyAccount.where(user_id: session[:user_id]).pluck(:account_id) if session[:user_id]
-    @uniq_key = "#{SecureRandom.urlsafe_base64(nil, false)}-#{SecureRandom.urlsafe_base64(nil, false)}-#{SecureRandom.urlsafe_base64(nil, false)}"
+    @game_uniq_key = "#{SecureRandom.urlsafe_base64(nil, false)}-#{SecureRandom.urlsafe_base64(nil, false)}-#{SecureRandom.urlsafe_base64(nil, false)}"
   end
   
   def set_uniq_key
-    user = User.create(uniq_key: params[:uniq_key])
+    user = User.create(game_uniq_key: params[:game_uniq_key])
     session[:user_id] = user.id
     render json: {user_id: user.id}
   end
   
   def set_user_id
-    user = User.find_by_uniq_key(params[:uniq_key])
+    user = User.find_by_game_uniq_key(params[:game_uniq_key])
     session[:user_id] = user.id
     render json: {status: :ok}
   end
   
   def create_user_copy_account
-    user = User.find_by_uniq_key(params[:uniq_key])
+    user = User.find_by_game_uniq_key(params[:game_uniq_key])
     copy_account = user.user_copy_accounts.where(account_id: params[:account_id])
     user.user_copy_accounts.create(account_id: params[:account_id]) if copy_account.blank?
     render json: {status: :ok}

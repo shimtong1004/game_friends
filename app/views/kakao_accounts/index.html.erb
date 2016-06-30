@@ -14,17 +14,17 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
-	var uniq_key = getCookie("uniq_key");
-	if ( uniq_key == "") {
-		var uniq_key = "<%= @uniq_key %>";
+	var game_uniq_key = getCookie("game_uniq_key");
+	if ( game_uniq_key == "") {
+		var game_uniq_key = "<%= @game_uniq_key %>";
 		var d = new Date();
 		d.setYear(2026);
 		var expires = "expires="+d.toGMTString();
-		document.cookie = "uniq_key" + "=" + uniq_key + "; " + expires;
+		document.cookie = "game_uniq_key" + "=" + game_uniq_key + "; " + expires;
 		$.ajax({
 			url: "/kakao_accounts/set_uniq_key",
 			dataType:'json',
-			data: {uniq_key: uniq_key},
+			data: {game_uniq_key: game_uniq_key},
 			type:'POST',
 			success: function(data){
 				document.cookie = "user_id" + "=" + data.user_id + "; " + expires;
@@ -35,7 +35,7 @@
 			$.ajax({
 				url: "/kakao_accounts/set_user_id",
 				dataType:'json',
-				data: {uniq_key: uniq_key},
+				data: {game_uniq_key: game_uniq_key},
 				type:'GET',
 				success: function(data){
 				}
@@ -53,7 +53,7 @@
 	  $.ajax({
 	  	url: "/kakao_accounts/create_user_copy_account",
 	  	dataType:'json',
-	  	data: {account_id: account_id, uniq_key: uniq_key},
+	  	data: {account_id: account_id, game_uniq_key: game_uniq_key},
 		type:'POST',
 		success: function(data){
 			$("#account_"+account_id).css("background-color","gray");
