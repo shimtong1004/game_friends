@@ -6,7 +6,7 @@ class KakaoAccountsController < ApplicationController
   # GET /kakao_accounts.json
   def index
     game_id = params[:game_id]
-    @kakao_accounts = KakaoAccount.where(game_id: game_id).order("id desc").limit(200)
+    @kakao_accounts = KakaoAccount.where(game_id: game_id, is_true: true).order("id desc").limit(200)
     @account_ids = []
     @account_ids = UserCopyAccount.where(user_id: session[:user_id]).pluck(:account_id) if session[:user_id]
     @game_uniq_key = "#{SecureRandom.urlsafe_base64(nil, false)}-#{SecureRandom.urlsafe_base64(nil, false)}-#{SecureRandom.urlsafe_base64(nil, false)}"

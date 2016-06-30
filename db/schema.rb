@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160630045603) do
+ActiveRecord::Schema.define(version: 20160630063843) do
 
   create_table "games", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -23,10 +23,12 @@ ActiveRecord::Schema.define(version: 20160630045603) do
   create_table "kakao_accounts", force: :cascade do |t|
     t.integer  "game_id",    limit: 4
     t.string   "account",    limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "is_true",                default: true
   end
 
+  add_index "kakao_accounts", ["game_id", "is_true"], name: "index_kakao_accounts_on_game_id_and_is_true", using: :btree
   add_index "kakao_accounts", ["game_id"], name: "index_kakao_accounts_on_game_id", using: :btree
 
   create_table "user_copy_accounts", force: :cascade do |t|
